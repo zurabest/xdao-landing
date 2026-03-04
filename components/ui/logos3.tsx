@@ -36,8 +36,7 @@ const Logos3 = ({
                 <div
                     className="flex min-w-full shrink-0 flex-nowrap gap-12 items-center justify-start pr-12 will-change-transform"
                     style={{
-                        animation: "marquee 60s linear 9999",
-                        animationPlayState: "running",
+                        animation: "marquee 60s linear infinite",
                     }}
                 >
                     {logos.map((logo, idx) => (
@@ -59,8 +58,7 @@ const Logos3 = ({
                     aria-hidden="true"
                     className="flex min-w-full shrink-0 flex-nowrap gap-12 items-center justify-start pr-12 will-change-transform"
                     style={{
-                        animation: "marquee 60s linear 9999",
-                        animationPlayState: "running",
+                        animation: "marquee 60s linear infinite",
                     }}
                 >
                     {logos.map((logo, idx) => (

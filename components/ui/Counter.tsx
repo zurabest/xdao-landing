@@ -113,7 +113,7 @@ export default function Counter({
     bottomGradientStyle,
     active = true,
 }: CounterProps) {
-    const resolvedPlaces = places ?? [...value.toString()].map((ch, i, a) => {
+    const resolvedPlaces = places ?? value.toString().split('').map((ch, i, a) => {
         if (ch === '.') return '.' as const
         return (
             10 **

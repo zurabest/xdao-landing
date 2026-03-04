@@ -3,6 +3,7 @@ import { Footer } from '@/components/sections/Footer'
 import { BoardSection } from '@/components/sections/BoardSection'
 import { GlobalStructure } from '@/components/sections/GlobalStructure'
 import { Roadmap } from '@/components/sections/Roadmap'
+import { AboutSidebar } from '@/components/sections/AboutSidebar'
 import { Tweet } from 'react-tweet'
 import PixelBlast from '@/components/ui/PixelBlast'
 
@@ -161,29 +162,7 @@ export default function AboutPage() {
                             </div>
 
                             {/* Sticky Sidebar Navigation */}
-                            <aside className="hidden lg:block w-48 shrink-0 ml-auto">
-                                <nav className="sticky top-40 space-y-3 pl-8">
-                                    <p className="text-xs uppercase tracking-wider text-gray-400 font-medium mb-4">On this page</p>
-                                    <a href="#story" className="block text-body text-[#003bb9] hover:text-bt-gray-text transition-colors py-1">
-                                        The Story
-                                    </a>
-                                    <a href="#vision" className="block text-body text-[#003bb9] hover:text-bt-gray-text transition-colors py-1">
-                                        Our Vision
-                                    </a>
-                                    <a href="#mission" className="block text-body text-[#003bb9] hover:text-bt-gray-text transition-colors py-1">
-                                        Our Mission
-                                    </a>
-                                    <a href="#board" className="block text-body text-[#003bb9] hover:text-bt-gray-text transition-colors py-1">
-                                        Board
-                                    </a>
-                                    <a href="#structure" className="block text-body text-[#003bb9] hover:text-bt-gray-text transition-colors py-1">
-                                        Structure
-                                    </a>
-                                    <a href="#roadmap" className="block text-body text-[#003bb9] hover:text-bt-gray-text transition-colors py-1">
-                                        Roadmap
-                                    </a>
-                                </nav>
-                            </aside>
+                            <AboutSidebar />
                         </div>
                     </div>
                 </section>

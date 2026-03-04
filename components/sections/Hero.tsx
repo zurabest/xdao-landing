@@ -1,94 +1,89 @@
-"use client"
-
-import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { ArrowRight, Play } from "lucide-react"
+import { BraintrustButton as Button } from '@/components/ui/BraintrustButton'
+import { Typewriter } from '@/components/ui/typewriter-text'
+import Link from 'next/link'
+import PixelBlast from '@/components/ui/PixelBlast'
 
 export function Hero() {
     return (
-        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-            {/* Background Decor */}
-            <div className="absolute inset-0 -z-10 mesh-gradient opacity-40" />
-            <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/20 blur-[100px] rounded-full -z-10" />
+        <section className="relative pt-20 pb-10 md:pt-32 md:pb-14 overflow-hidden">
+            <div className="absolute top-0 right-0 w-1/2 h-full z-0 overflow-hidden opacity-40">
+                <PixelBlast
+                    variant="square"
+                    pixelSize={4}
+                    color="#003bb9"
+                    patternScale={2}
+                    patternDensity={1}
+                    pixelSizeJitter={0}
+                    enableRipples
+                    rippleSpeed={0.4}
+                    rippleThickness={0.12}
+                    rippleIntensityScale={1.5}
+                    liquid={false}
+                    liquidStrength={0.12}
+                    liquidRadius={1.2}
+                    liquidWobbleSpeed={5}
+                    speed={0.5}
+                    edgeFade={0.25}
+                    transparent
+                    logoSrc="/xdao-icon.svg"
+                />
+            </div>
 
-            <div className="container px-4 md:px-6 relative z-10 text-center">
-                {/* Badge */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-8 hover:bg-primary/20 transition-colors cursor-pointer"
-                >
-                    <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                    </span>
-                    New: Multi-chain support
-                    <ArrowRight className="w-4 h-4" />
-                </motion.div>
 
-                {/* Heading */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70"
+            <div className="container-bt relative z-10" style={{ maxWidth: '1400px' }}>
+
+
+
+                {/* Crowdfunding pill */}
+                <a
+                    href="https://t.me/xdao_ton_bot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mb-6 px-4 py-1.5 rounded-full text-sm font-semibold text-black"
+                    style={{ backgroundColor: '#E6FF00' }}
                 >
-                    Create your DAO <br className="hidden md:block" />
-                    in minutes, not months
-                </motion.h1>
+                    Crowdfunding module is live on Telegram
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.5 10.5L10.5 2.5M10.5 2.5H4.5M10.5 2.5V8.5" stroke="black" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </a>
+
+                {/* Heading - exact Braintrust typography */}
+                <h1 className="text-display font-semibold max-w-5xl tracking-tight">
+                    Treasury, Future-Ready
+                </h1>
 
                 {/* Subheading */}
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
-                >
-                    The most powerful platform to start, manage, and grow your decentralized organization.
-                    Secure, modular, and gasless.
-                </motion.p>
+                <p className="mt-4 text-subhead text-bt-gray-text font-light min-h-[56px] md:min-h-[64px]" style={{ maxWidth: '38.4rem' }}>
+                    <Typewriter
+                        text={[
+                            "XDAO is digital treasury management that scales from family funds to global enterprise",
+                            "XDAO is real-time visibility into every asset, every transaction, and every approval step",
+                            "XDAO is the control layer between your boardroom decisions and digital asset execution",
+                            "XDAO is one unified dashboard replacing fragmented tools and manual reconciliation work",
+                            "XDAO is modular by design — scale from basic treasury to full financial infrastructure"
+                        ]}
+                        speed={33} // ~90 chars * 33ms = ~3 seconds
+                        delay={3000} // 3 seconds before next phrase
+                        loop={true}
+                        cursor="" // remove cursor
+                    />
+                </p>
 
                 {/* CTAs */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
-                >
-                    <Button size="lg" className="h-12 px-8 text-base">
-                        Launch App
-                        <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                    <Button size="lg" variant="outline" className="h-12 px-8 text-base border-white/10 hover:bg-white/5">
-                        <Play className="mr-2 w-4 h-4 fill-current" />
-                        Watch Demo
-                    </Button>
-                </motion.div>
+                <div className="mt-20 flex flex-wrap gap-4">
+                    <Link href="/1" passHref>
+                        <Button variant="primary" className="bg-[#003bb9] text-white hover:bg-[#002f94] rounded-full border-none">
+                            Desktop (40+ EVM Chains)
+                        </Button>
+                    </Link>
+                    <Link href="https://t.me/xdao_ton_bot" target="_blank" rel="noopener noreferrer" passHref>
+                        <Button variant="primary" className="bg-transparent text-[#003bb9] hover:bg-[#003bb9]/10 border-2 border-[#003bb9] rounded-full shadow-none">
+                            Telegram (TON)
+                        </Button>
+                    </Link>
+                </div>
 
-                {/* Visual Element */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 40 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-                    className="mt-20 relative mx-auto max-w-5xl rounded-xl border border-white/10 bg-white/5 p-2 backdrop-blur-sm shadow-2xl"
-                >
-                    <div className="rounded-lg overflow-hidden bg-background aspect-[16/9] relative group">
-                        {/* Simulated Dashboard UI */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center text-white/20 font-mono text-sm">
-                            {/* Placeholder for actual dashboard image */}
-                            <div className="text-center">
-                                <div className="w-24 h-24 border-2 border-white/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                    <span className="text-4xl">X</span>
-                                </div>
-                                <p>Dashboard Preview</p>
-                            </div>
-                        </div>
-
-                        {/* Glossy overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent pointer-events-none" />
-                    </div>
-                </motion.div>
             </div>
         </section>
     )

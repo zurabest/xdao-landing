@@ -19,6 +19,7 @@ const config: Config = {
         'bt-pink': '#FFC6C6',
         'bt-blue': '#2C1FEA',
         'bt-lime': '#CCFF00',
+        'xdao-yellow': '#FFD700',
         'bt-orange': '#FF8000',
         'bt-dark-green': '#094135',
         'bt-dark-maroon': '#2D1A1A',

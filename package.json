@@ -25,6 +25,7 @@
     "postprocessing": "^6.38.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-tweet": "^3.3.0",
     "tailwind-merge": "^2.6.1",
     "three": "^0.183.2",
     "viem": "2.x",

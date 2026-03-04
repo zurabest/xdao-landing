@@ -45,6 +45,14 @@
     @apply bg-background text-foreground;
   }
 
+  a {
+    color: #003bb9;
+  }
+
+  a:hover {
+    opacity: 0.8;
+  }
+
   /* Reset for precise matching - Braintrust overrides */
   h1,
   h2,

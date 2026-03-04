@@ -18,8 +18,8 @@ export function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-8">
-                    <Link href="/features" className="text-body hover:text-bt-gray-text transition-colors">
-                        Features
+                    <Link href="/about" className="text-body hover:text-bt-gray-text transition-colors">
+                        About
                     </Link>
                     <Link href="/pricing" className="text-body hover:text-bt-gray-text transition-colors">
                         Pricing
@@ -45,8 +45,8 @@ export function Header() {
             {isOpen && (
                 <div className="absolute top-16 left-0 w-full bg-white border-b border-bt-gray-border md:hidden p-6 shadow-lg">
                     <nav className="flex flex-col gap-4">
-                        <Link href="/features" className="text-body font-medium" onClick={() => setIsOpen(false)}>
-                            Features
+                        <Link href="/about" className="text-body font-medium" onClick={() => setIsOpen(false)}>
+                            About
                         </Link>
                         <Link href="/pricing" className="text-body font-medium" onClick={() => setIsOpen(false)}>
                             Pricing

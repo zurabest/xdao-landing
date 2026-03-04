@@ -17,7 +17,7 @@ export function GlobalStructure() {
 
             <div className="flex flex-col items-center">
                 {/* Headquarters - USA - Full Width */}
-                <div className="group relative w-full rounded-2xl p-8 text-white text-center overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-2xl">
+                <div className="group relative w-full rounded-2xl p-8 text-white text-center overflow-hidden cursor-pointer transition-all duration-500">
                     {/* Base background */}
                     <div className="absolute inset-0 bg-[#003bb9] transition-opacity duration-500"></div>
 
@@ -28,9 +28,6 @@ export function GlobalStructure() {
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                     </div>
-
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[#e6ff01] via-[#003bb9] to-[#e6ff01] rounded-2xl opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500 -z-10"></div>
 
                     {/* Content */}
                     <div className="relative z-10">
@@ -50,7 +47,7 @@ export function GlobalStructure() {
                 <div className="w-0.5 h-10 bg-[#003bb9]"></div>
 
                 {/* Representative Office - Singapore - Centered, smaller */}
-                <div className="group relative w-full max-w-sm rounded-2xl p-6 text-center overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-2xl">
+                <div className="group relative w-full max-w-sm rounded-2xl p-6 text-center overflow-hidden cursor-pointer transition-all duration-500">
                     {/* Base background */}
                     <div className="absolute inset-0 bg-white transition-opacity duration-500"></div>
 
@@ -64,9 +61,6 @@ export function GlobalStructure() {
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden rounded-2xl">
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#003bb9]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                     </div>
-
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[#003bb9] via-[#e6ff01] to-[#003bb9] rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 -z-10"></div>
 
                     {/* Content */}
                     <div className="relative z-10">

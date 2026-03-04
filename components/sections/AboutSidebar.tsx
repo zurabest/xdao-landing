@@ -9,6 +9,7 @@ const sections = [
     { id: 'board', label: 'Board' },
     { id: 'structure', label: 'Structure' },
     { id: 'roadmap', label: 'Roadmap' },
+    { id: 'token', label: 'Token' },
 ]
 
 export function AboutSidebar() {
@@ -16,6 +17,7 @@ export function AboutSidebar() {
     const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 24 })
     const linksContainerRef = useRef<HTMLDivElement>(null)
     const linkRefs = useRef<(HTMLAnchorElement | null)[]>([])
+    const isClickingRef = useRef(false)
 
     const updateIndicator = useCallback((index: number) => {
         const link = linkRefs.current[index]
@@ -32,6 +34,15 @@ export function AboutSidebar() {
         }
     }, [])
 
+    const handleClick = (index: number) => {
+        isClickingRef.current = true
+        setActiveIndex(index)
+        // Разблокировать observer после завершения скролла
+        setTimeout(() => {
+            isClickingRef.current = false
+        }, 800)
+    }
+
     useEffect(() => {
         // Initial position
         updateIndicator(activeIndex)
@@ -47,7 +58,7 @@ export function AboutSidebar() {
             const observer = new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
+                        if (entry.isIntersecting && !isClickingRef.current) {
                             setActiveIndex(index)
                         }
                     })
@@ -86,6 +97,7 @@ export function AboutSidebar() {
                             key={id}
                             ref={(el) => { linkRefs.current[index] = el }}
                             href={`#${id}`}
+                            onClick={() => handleClick(index)}
                             className={`relative block py-2 pl-4 text-body transition-all duration-300 ${
                                 activeIndex === index
                                     ? 'text-black font-medium'

@@ -3,6 +3,7 @@ import { Footer } from '@/components/sections/Footer'
 import { BoardSection } from '@/components/sections/BoardSection'
 import { GlobalStructure } from '@/components/sections/GlobalStructure'
 import { Roadmap } from '@/components/sections/Roadmap'
+import { TokenSection } from '@/components/sections/TokenSection'
 import { AboutSidebar } from '@/components/sections/AboutSidebar'
 import { Tweet } from 'react-tweet'
 import PixelBlast from '@/components/ui/PixelBlast'
@@ -39,16 +40,16 @@ export default function AboutPage() {
                     />
                 </div>
 
-                <section className="pt-12 md:pt-16 pb-20 md:pb-32 bg-white">
-                    <div className="container-bt">
-                        <div className="flex gap-12">
+                <section className="pt-12 md:pt-16 bg-white overflow-x-clip">
+                    <div className="container-bt overflow-visible">
+                        <div className="flex gap-12 overflow-visible">
                             {/* Main Content */}
-                            <div className="flex-1 max-w-3xl">
-                                <h1 id="story" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-12 scroll-mt-32">
+                            <div className="flex-1 max-w-3xl overflow-visible">
+                                <h1 id="story" className="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight text-black mb-8 scroll-mt-32">
                                     The Story of XDAO
                                 </h1>
 
-                                <div className="space-y-9 text-lg text-bt-gray-text leading-relaxed">
+                                <div className="space-y-9 text-lg text-bt-gray-text leading-relaxed overflow-visible">
                             <p>
                                 XDAO began in <strong>2020</strong> as a bold experiment — a self-funded bet on a simple but powerful idea: <em>make it effortless for anyone, anywhere, to create and manage a digital organization.</em>
                             </p>
@@ -109,6 +110,11 @@ export default function AboutPage() {
                                     "It's time to rethink what 'DAO' actually means. Not <em>Decentralized</em> Autonomous Organizations — because decentralization alone, as the industry has learned, is not enough. Without structure and autonomy, it becomes noise. But <strong>Digital Autonomous Organizations</strong>: structured, reliable, and purposeful entities that operate on-chain with the same discipline you'd expect from any serious institution."
                                 </p>
                                 <footer className="flex items-center gap-3">
+                                    <img
+                                        src="/avatars/vladislav.png"
+                                        alt="Vladislav Shavlidze"
+                                        className="w-14 h-14 rounded-full object-cover ring-2 ring-[#003bb9]"
+                                    />
                                     <div>
                                         <cite className="not-italic font-semibold text-black">Vladislav Shavlidze</cite>
                                         <p className="text-sm text-gray-500">CEO & Co-founder, XDAO</p>
@@ -158,6 +164,8 @@ export default function AboutPage() {
                             <GlobalStructure />
 
                             <Roadmap />
+
+                            <TokenSection />
                                 </div>
                             </div>
 

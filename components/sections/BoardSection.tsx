@@ -29,11 +29,11 @@ export function BoardSection() {
                 Board of Directors
             </h2>
 
-            <p className="mb-10">
+            <p className="mb-24">
                 XDAO is led by a team that understands both the <strong>technical depth of blockchain systems</strong> and the <strong>operational realities of running global organizations</strong>. This combination of <strong>hands-on building experience</strong> and <strong>strategic vision</strong> is what enables XDAO to deliver infrastructure that real teams actually want to use.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 !mt-16">
                 {boardMembers.map((member, index) => (
                     <div key={index} className="text-center">
                         {/* Photo */}
@@ -47,7 +47,9 @@ export function BoardSection() {
 
                         {/* Name */}
                         <h3 className="text-xl md:text-2xl font-bold text-black mb-2">
-                            {member.name}
+                            {member.name.split(' ').map((part, i) => (
+                                <span key={i} className="block">{part}</span>
+                            ))}
                         </h3>
 
                         {/* Badge */}

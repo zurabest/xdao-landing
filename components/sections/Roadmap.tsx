@@ -1,249 +1,354 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-type RoadmapPhase = {
-    phase: string
+type CardSize = 'large' | 'medium' | 'small'
+type CardStatus = 'completed' | 'in-progress' | 'upcoming' | 'vision'
+
+type BentoCard = {
+    year: string
     title: string
-    status: 'completed' | 'in-progress' | 'upcoming'
-    items: {
-        title: string
-        description: string
-        status: 'completed' | 'in-progress' | 'upcoming'
-    }[]
+    description: string
+    status: CardStatus
+    size: CardSize
 }
 
-const roadmapData: RoadmapPhase[] = [
+// Flattened data with editorial size assignments based on milestone importance
+const bentoCards: BentoCard[] = [
+    // 2021 - Genesis
     {
-        phase: "Phase 1",
-        title: "Foundation",
+        year: "2021",
+        title: "XDAO v1 — First Deployment",
+        description: "Launched on BNB Chain as a self-funded experiment. Won the Binance Hackathon and proved that demand for accessible DAO infrastructure was real.",
         status: "completed",
-        items: [
-            {
-                title: "Open Mining of $XDAO Token",
-                description: "Millions of users mining the token in our Telegram Mini App to ensure fair distribution",
-                status: "completed"
-            },
-            {
-                title: "TONxDAO Project Launch",
-                description: "Engagement through simplified game mechanics showcasing DAO potential",
-                status: "completed"
-            }
-        ]
+        size: "large"
     },
     {
-        phase: "Phase 2",
-        title: "Scale",
+        year: "2021",
+        title: "XDAO v2 — EVM Infrastructure",
+        description: "Rebuilt from the ground up on Ethereum, BNB Chain, and Polygon with native multi-chain support. Expanded to 40+ EVM blockchains — the broadest deployment coverage in the category.",
+        status: "completed",
+        size: "medium"
+    },
+    // 2022 - Financial Primitives
+    {
+        year: "2022",
+        title: "Crowdfunding Module",
+        description: "Enabled communities to raise capital directly into DAO treasuries through LP token issuance — turning DAOs into full-cycle financial instruments, not just governance structures.",
+        status: "completed",
+        size: "medium"
+    },
+    {
+        year: "2022",
+        title: "DeFi Integration via WalletConnect",
+        description: "Opened DAO treasuries to the entire DeFi ecosystem. Any protocol, any chain, managed from a single organizational layer.",
+        status: "completed",
+        size: "small"
+    },
+    {
+        year: "2022",
+        title: "Polygon & BNB Chain Education Programs",
+        description: "Structured onboarding campaigns that introduced tens and hundreds of thousands of users to DAO treasury management. XDAO became the fastest-growing protocol in both ecosystems.",
+        status: "completed",
+        size: "small"
+    },
+    // 2023 - Product Maturity
+    {
+        year: "2023",
+        title: "XDAO Interface v3",
+        description: "A complete redesign focused on simplicity. Reduced time-to-DAO and made the product accessible to founders with no blockchain background.",
+        status: "completed",
+        size: "medium"
+    },
+    // 2024 - Legal Infrastructure
+    {
+        year: "2024",
+        title: "TONxDAO — Gamified Onboarding",
+        description: "Launched a Telegram Mini App combining education and community engagement. Over 12 million users experienced DAO concepts in an accessible, native Telegram format.",
+        status: "completed",
+        size: "large"
+    },
+    {
+        year: "2025",
+        title: "Legal Module in Telegram",
+        description: "Introduced binding agreement functionality inside Telegram chats — the first step toward making DAO participation legally enforceable in the real world.",
+        status: "completed",
+        size: "medium"
+    },
+    {
+        year: "2025",
+        title: "XDAO Labs Network",
+        description: "Established a structured network of DAO cells operating under a unified parent organization, creating the blueprint for federated digital entities.",
+        status: "completed",
+        size: "small"
+    },
+    // 2025 - TON Ecosystem
+    {
+        year: "2025",
+        title: "XDAO TON — On-Chain DAO Builder",
+        description: "Deployed full treasury management infrastructure natively on TON, making it available to Telegram's global user base without leaving the messenger.",
+        status: "completed",
+        size: "medium"
+    },
+    {
+        year: "2025",
+        title: "TON Crowdfunding Module",
+        description: "Merged social coordination with on-chain capital operations — communities can now raise, manage, and deploy funds collectively inside Telegram.",
+        status: "completed",
+        size: "small"
+    },
+    // 2026 - In Progress
+    {
+        year: "2026",
+        title: "XDAO on Solana — US Market Entry",
+        description: "Building compliant DAO infrastructure for the US market. Solana brings XDAO to organizations that require institutional-grade security, upgradable architecture, and regulatory alignment for digital asset management.",
         status: "in-progress",
-        items: [
-            {
-                title: "1 Million DAOs in TONxDAO",
-                description: "Building foundational infrastructure for large-scale DAO ecosystem on TON",
-                status: "in-progress"
-            },
-            {
-                title: "Telegram DAO Creation Product",
-                description: "Simplified process for creating DAOs directly in the messenger with minimal costs",
-                status: "in-progress"
-            },
-            {
-                title: "Smart Contract Transition",
-                description: "Migration of in-game DAOs to operate via TON blockchain smart contracts",
-                status: "upcoming"
-            }
-        ]
+        size: "large"
     },
     {
-        phase: "Phase 3",
-        title: "Infrastructure",
-        status: "upcoming",
-        items: [
-            {
-                title: "DAO Builder Launch on TON",
-                description: "Core infrastructure for professional DAO creation and management",
-                status: "upcoming"
-            },
-            {
-                title: "Legal Framework Development",
-                description: "Automatic official registration of DAOs in DAO-friendly jurisdictions",
-                status: "upcoming"
-            },
-            {
-                title: "Crowdfunding Module",
-                description: "Collective fundraising capabilities integrated with Telegram",
-                status: "upcoming"
-            }
-        ]
+        year: "2026",
+        title: "Compliance-Grade Crowdfunding",
+        description: "A capital-raising module designed specifically to meet US regulatory standards — enabling investment clubs, family offices, and emerging funds to raise capital on-chain with legal confidence.",
+        status: "in-progress",
+        size: "medium"
     },
     {
-        phase: "Phase 4",
-        title: "Expansion",
+        year: "2026",
+        title: "Cross-Chain Architecture — Foundation",
+        description: "Beginning the architectural work for a unified management layer across all major blockchain ecosystems. The goal: a single interface where any organization can manage any digital asset, regardless of which chain it lives on.",
+        status: "in-progress",
+        size: "small"
+    },
+    {
+        year: "2026",
+        title: "Compliance Stack On-Chain",
+        description: "Full US regulatory infrastructure built into the protocol from day one — identity verification, transaction monitoring, tax attestation, and legally binding agreement signing, all on-chain.",
+        status: "in-progress",
+        size: "medium"
+    },
+    {
+        year: "2026",
+        title: "Regulation-Compliant Crowdfunding",
+        description: "Capital raising under US securities exemptions with access control, soft/hard caps, investor whitelisting, and automatic refund mechanics built into the smart contract layer.",
+        status: "in-progress",
+        size: "small"
+    },
+    // 2027-2028 - Upcoming
+    {
+        year: "2027–2028",
+        title: "Unified Cross-Chain Dashboard",
+        description: "One interface for every blockchain. Organizations stop thinking in terms of chains and start thinking in terms of strategy. XDAO handles the complexity underneath.",
         status: "upcoming",
-        items: [
-            {
-                title: "Token Generation Event (TGE)",
-                description: "$XDAO token distribution via airdrop and official launch",
-                status: "upcoming"
-            },
-            {
-                title: "Telegram Chat Tokenization",
-                description: "Marketplace for digital organizations with purchasable access to DAO-chats",
-                status: "upcoming"
-            }
-        ]
-    }
+        size: "large"
+    },
+    {
+        year: "2027–2028",
+        title: "Enterprise Treasury Layer",
+        description: "Dedicated infrastructure for large organizations: family offices, investment funds, and corporate treasury teams. Automated compliance, multi-signature governance, and white-label deployment for institutions that need digital asset operations at scale.",
+        status: "upcoming",
+        size: "medium"
+    },
+    {
+        year: "2027–2028",
+        title: "Embedded Legal Infrastructure",
+        description: "Deep integration of legal and compliance tooling directly into the DAO layer — so that forming and operating a digital organization becomes as straightforward as opening a bank account.",
+        status: "upcoming",
+        size: "small"
+    },
+    {
+        year: "2027–2028",
+        title: "Merchant & Payments Infrastructure",
+        description: "On-chain invoicing, payment processing, recurring subscriptions, and storefront capabilities — DAOs operating as fully functional business entities.",
+        status: "upcoming",
+        size: "medium"
+    },
+    {
+        year: "2027–2028",
+        title: "Distribution Module",
+        description: "Automated dividend distribution to token holders with round-based payouts, tax compliance enforcement, and fully transparent on-chain claim records.",
+        status: "upcoming",
+        size: "small"
+    },
+    // 2029-2031 - Vision
+    {
+        year: "2029–2031",
+        title: "DAOs as Standard Corporate Infrastructure",
+        description: "The same way organizations adopted cloud computing, they will adopt digital treasury management. XDAO is building toward a world where every serious organization — from a two-person fund to a multinational — operates part of its financial life through a DAO.",
+        status: "vision",
+        size: "large"
+    },
+    // 2032-2035 - Vision
+    {
+        year: "2032–2035",
+        title: "From Tool to Ecosystem",
+        description: "XDAO evolves from a platform into foundational infrastructure: open, composable, and interoperable with the broader digital economy. The organizations built on XDAO today are the early nodes of a much larger network.",
+        status: "vision",
+        size: "medium"
+    },
+    {
+        year: "2032–2035",
+        title: "Digital Sovereignty for Every Organization",
+        description: "Ultimately, XDAO's mission is simple: any group of people, anywhere in the world, should be able to pool resources, govern them transparently, and act collectively — without depending on banks, intermediaries, or borders.",
+        status: "vision",
+        size: "medium"
+    },
 ]
 
-function StatusBadge({ status }: { status: 'completed' | 'in-progress' | 'upcoming' }) {
-    const styles = {
-        'completed': 'bg-[#003bb9] text-white border-[#003bb9]',
-        'in-progress': 'bg-[#e6ff01] text-black border-[#c4d400] shadow-sm',
-        'upcoming': 'bg-white text-gray-500 border-gray-300'
-    }
-
-    const labels = {
-        'completed': 'Completed',
-        'in-progress': 'In Progress',
-        'upcoming': 'Upcoming'
-    }
+function BentoCardComponent({
+    card,
+    index,
+    isVisible
+}: {
+    card: BentoCard
+    index: number
+    isVisible: boolean
+}) {
+    const isCompleted = card.status === 'completed'
 
     return (
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${styles[status]}`}>
-            {status === 'in-progress' && (
-                <span className="w-1.5 h-1.5 bg-black rounded-full mr-1.5 animate-pulse" />
-            )}
-            {status === 'completed' && (
-                <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-            )}
-            {labels[status]}
-        </span>
-    )
-}
-
-function PhaseCard({ phase, isActive, onClick }: { phase: RoadmapPhase; isActive: boolean; onClick: () => void }) {
-    const getStatusStyles = (status: string, active: boolean) => {
-        if (active) {
-            return {
-                dot: status === 'completed' ? 'bg-white' : status === 'in-progress' ? 'bg-[#e6ff01]' : 'bg-white/50',
-                ring: status === 'in-progress' ? 'ring-2 ring-[#e6ff01]/50' : ''
-            }
-        }
-        return {
-            dot: status === 'completed' ? 'bg-[#003bb9]' : status === 'in-progress' ? 'bg-[#e6ff01] ring-2 ring-[#c4d400]' : 'bg-gray-300',
-            ring: ''
-        }
-    }
-
-    const styles = getStatusStyles(phase.status, isActive)
-
-    return (
-        <button
-            onClick={onClick}
-            className={`relative flex flex-col items-center p-4 rounded-xl transition-all duration-300 ${
-                isActive
-                    ? 'bg-[#003bb9] text-white shadow-lg scale-105'
-                    : 'bg-white border border-gray-200 hover:border-[#003bb9] hover:shadow-md'
-            }`}
+        <div
+            className={`
+                inline-block w-full mb-4 break-inside-avoid
+                transition-all duration-500 ease-out
+                ${isVisible
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-8'
+                }
+            `}
+            style={{
+                transitionDelay: isVisible ? `${index * 80}ms` : '0ms',
+                opacity: isVisible ? 1 : 0,
+                perspective: '1000px'
+            }}
         >
-            <div className={`w-4 h-4 rounded-full mb-2 ${styles.dot} ${styles.ring}`} />
-            <span className={`text-xs font-medium uppercase tracking-wider ${isActive ? 'text-white/70' : 'text-gray-400'}`}>
-                {phase.phase}
-            </span>
-            <span className={`text-sm font-bold ${isActive ? 'text-white' : 'text-black'}`}>
-                {phase.title}
-            </span>
-        </button>
+            <div
+                className="relative w-full h-[180px] group"
+                style={{ transformStyle: 'preserve-3d' }}
+            >
+                {/* Front Side */}
+                <div
+                    className={`
+                        absolute inset-0 rounded-2xl border-2 p-5 md:p-6
+                        flex flex-col justify-center
+                        transition-transform duration-500 ease-out
+                        group-hover:[transform:rotateY(180deg)]
+                        ${isCompleted
+                            ? 'bg-[#003bb9] border-[#003bb9]'
+                            : 'bg-white border-[#003bb9]'
+                        }
+                    `}
+                    style={{ backfaceVisibility: 'hidden' }}
+                >
+                    {/* In-progress indicator */}
+                    {card.status === 'in-progress' && (
+                        <span className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#e6ff01] text-black text-xs font-medium">
+                            <span className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
+                            Active
+                        </span>
+                    )}
+
+                    {/* Year */}
+                    <span className={`
+                        text-3xl md:text-4xl font-bold mb-2
+                        ${isCompleted ? 'text-white/60' : 'text-[#003bb9]/40'}
+                    `}>
+                        {card.year}
+                    </span>
+
+                    {/* Title */}
+                    <h4 className={`
+                        font-bold text-base md:text-lg leading-tight
+                        ${isCompleted ? 'text-white' : 'text-black'}
+                    `}>
+                        {card.title}
+                    </h4>
+                </div>
+
+                {/* Back Side */}
+                <div
+                    className={`
+                        absolute inset-0 rounded-2xl border-2 p-5 md:p-6
+                        flex flex-col justify-center
+                        transition-transform duration-500 ease-out
+                        [transform:rotateY(180deg)]
+                        group-hover:[transform:rotateY(360deg)]
+                        ${isCompleted
+                            ? 'bg-[#003bb9] border-[#003bb9]'
+                            : 'bg-white border-[#003bb9]'
+                        }
+                    `}
+                    style={{ backfaceVisibility: 'hidden' }}
+                >
+                    <p className={`
+                        text-sm leading-relaxed
+                        ${isCompleted ? 'text-white/90' : 'text-gray-600'}
+                    `}>
+                        {card.description}
+                    </p>
+                </div>
+            </div>
+        </div>
     )
 }
 
 export function Roadmap() {
-    const [activePhase, setActivePhase] = useState(1) // Start with Phase 2 (in-progress)
+    const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set())
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
-    const currentPhase = roadmapData[activePhase]
+    // Intersection observer for scroll animations
+    useEffect(() => {
+        const observers: IntersectionObserver[] = []
 
-    // Calculate progress based on completed phases
-    const completedCount = roadmapData.filter(p => p.status === 'completed').length
-    const inProgressCount = roadmapData.filter(p => p.status === 'in-progress').length
-    const progressPercent = ((completedCount + inProgressCount * 0.5) / roadmapData.length) * 100
+        cardRefs.current.forEach((cardEl, index) => {
+            if (!cardEl) return
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setVisibleCards(prev => new Set([...Array.from(prev), index]))
+                        }
+                    })
+                },
+                {
+                    rootMargin: '0px 0px -10% 0px',
+                    threshold: 0.1
+                }
+            )
+
+            observer.observe(cardEl)
+            observers.push(observer)
+        })
+
+        return () => {
+            observers.forEach(observer => observer.disconnect())
+        }
+    }, [])
 
     return (
         <>
-            <h2 id="roadmap" className="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight text-black !mt-24 mb-8 scroll-mt-32">
+            <h2 id="roadmap" className="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight text-black !mt-24 mb-4 scroll-mt-32">
                 Roadmap
             </h2>
 
-            <p className="mb-10">
-                XDAO is building the <strong>future of digital organizations</strong> — one milestone at a time. Our roadmap reflects our commitment to delivering real value through continuous innovation on the TON blockchain and beyond.
+            <p className="text-lg text-gray-600 mb-12">
+                Every card is a bet we made. Hover to see what's behind each one.
             </p>
 
-            {/* Phase Selector */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                {roadmapData.map((phase, index) => (
-                    <PhaseCard
-                        key={phase.phase}
-                        phase={phase}
-                        isActive={activePhase === index}
-                        onClick={() => setActivePhase(index)}
-                    />
-                ))}
-            </div>
-
-            {/* Progress Line */}
-            <div className="relative h-3 bg-gray-200 rounded-full mb-8 overflow-hidden">
-                <div
-                    className="absolute left-0 top-0 h-full bg-[#003bb9] rounded-full transition-all duration-500"
-                    style={{ width: `${progressPercent}%` }}
-                />
-            </div>
-
-            {/* Active Phase Details */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
-                <div className="flex items-center justify-between mb-6">
-                    <div>
-                        <span className="text-[#003bb9] text-sm font-semibold uppercase tracking-wider">
-                            {currentPhase.phase}
-                        </span>
-                        <h3 className="text-2xl font-bold text-black">
-                            {currentPhase.title}
-                        </h3>
+            {/* Masonry Layout with CSS Columns */}
+            <div className="columns-1 md:columns-2 gap-4">
+                {bentoCards.map((card, index) => (
+                    <div
+                        key={`${card.year}-${card.title}`}
+                        ref={(el) => { cardRefs.current[index] = el }}
+                    >
+                        <BentoCardComponent
+                            card={card}
+                            index={index}
+                            isVisible={visibleCards.has(index)}
+                        />
                     </div>
-                    <StatusBadge status={currentPhase.status} />
-                </div>
-
-                <div className="space-y-4">
-                    {currentPhase.items.map((item, index) => (
-                        <div
-                            key={index}
-                            className={`group relative rounded-xl p-5 border transition-all duration-300 ${
-                                item.status === 'completed'
-                                    ? 'bg-[#003bb9]/5 border-[#003bb9]/20'
-                                    : item.status === 'in-progress'
-                                    ? 'bg-[#e6ff01]/10 border-[#e6ff01]'
-                                    : 'bg-gray-50 border-gray-200'
-                            } hover:shadow-md`}
-                        >
-                            <div className="flex items-start justify-between gap-4">
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <div className={`w-3 h-3 rounded-full ${
-                                            item.status === 'completed' ? 'bg-[#003bb9]' :
-                                            item.status === 'in-progress' ? 'bg-[#e6ff01] ring-2 ring-[#c4d400]' : 'bg-gray-300'
-                                        }`} />
-                                        <h4 className="font-semibold text-black">
-                                            {item.title}
-                                        </h4>
-                                    </div>
-                                    <p className="text-sm text-gray-600 ml-6">
-                                        {item.description}
-                                    </p>
-                                </div>
-                                <StatusBadge status={item.status} />
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                ))}
             </div>
         </>
     )

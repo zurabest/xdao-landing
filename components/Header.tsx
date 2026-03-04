@@ -2,8 +2,19 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ChevronDown } from 'lucide-react'
 import { XdaoLogo } from '@/components/ui/XdaoLogo'
+import { MegaMenu } from '@/components/ui/mega-menu'
+
+const aboutSubmenu = [
+    { label: 'The Story', href: '/about#story' },
+    { label: 'Our Vision', href: '/about#vision' },
+    { label: 'Our Mission', href: '/about#mission' },
+    { label: 'Board', href: '/about#board' },
+    { label: 'Structure', href: '/about#structure' },
+    { label: 'Roadmap', href: '/about#roadmap' },
+    { label: 'Token', href: '/about#token' },
+]
 
 export function Header() {
     const [isOpen, setIsOpen] = useState(false)
@@ -18,9 +29,11 @@ export function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-8">
-                    <Link href="/about" className="text-body hover:text-bt-gray-text transition-colors">
-                        About
-                    </Link>
+                    <MegaMenu
+                        label="About"
+                        href="/about"
+                        items={aboutSubmenu}
+                    />
                     <Link href="/pricing" className="text-body hover:text-bt-gray-text transition-colors">
                         Pricing
                     </Link>
@@ -45,9 +58,23 @@ export function Header() {
             {isOpen && (
                 <div className="absolute top-16 left-0 w-full bg-white border-b border-bt-gray-border md:hidden p-6 shadow-lg">
                     <nav className="flex flex-col gap-4">
-                        <Link href="/about" className="text-body font-medium" onClick={() => setIsOpen(false)}>
-                            About
-                        </Link>
+                        <div className="flex flex-col">
+                            <Link href="/about" className="text-body font-medium mb-2" onClick={() => setIsOpen(false)}>
+                                About
+                            </Link>
+                            <div className="pl-4 flex flex-col gap-2 border-l-2 border-[#003bb9]/20">
+                                {aboutSubmenu.map((item) => (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        className="text-sm text-black/70 hover:text-[#003bb9] transition-colors"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
                         <Link href="/pricing" className="text-body font-medium" onClick={() => setIsOpen(false)}>
                             Pricing
                         </Link>

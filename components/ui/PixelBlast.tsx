@@ -481,7 +481,6 @@ const PixelBlast = ({
             const quadGeom = new THREE.PlaneGeometry(2, 2);
             const quad = new THREE.Mesh(quadGeom, material);
             scene.add(quad);
-            const clock = new THREE.Clock();
             const setSize = () => {
                 const w = container.clientWidth || 1;
                 const h = container.clientHeight || 1;
@@ -494,15 +493,8 @@ const PixelBlast = ({
             setSize();
             const ro = new ResizeObserver(setSize);
             ro.observe(container);
-            const randomFloat = () => {
-                if (typeof window !== 'undefined' && window.crypto?.getRandomValues) {
-                    const u32 = new Uint32Array(1);
-                    window.crypto.getRandomValues(u32);
-                    return u32[0] / 0xffffffff;
-                }
-                return Math.random();
-            };
-            const timeOffset = randomFloat() * 1000;
+            // Set random initial time for visual variety (within wrap range)
+            uniforms.uTime.value = Math.random() * 600;
             let composer: any;
             let touch: any;
             let liquidEffect: any;
@@ -572,25 +564,26 @@ const PixelBlast = ({
             renderer.domElement.addEventListener('pointermove', onPointerMove, {
                 passive: true
             });
-            // --- Logo particle system ---
+            // --- Logo particle system (delta-based to avoid precision issues) ---
             const LOGO_SLOTS = 1;
             const FADE_IN = 1.2;  // seconds
             const FADE_OUT = 1.5;  // seconds
-            // Each particle: { x, y, w, h, birthTime, lifetime, maxStr, active }
+            // Each particle uses age-based timing (incremented by delta each frame)
             const logoParticles: any[] = Array.from({ length: LOGO_SLOTS }, () => ({
                 x: 0, y: 0, w: 0, h: 0,
-                birthTime: 999999,
+                age: -1,           // current age in seconds (negative = waiting to spawn)
                 lifetime: 1,
                 maxStr: 0.8,
                 active: false
             }));
-            // Stagger first spawns
-            logoParticles.forEach((p, i) => { p.birthTime = i * (1.5 + Math.random() * 2); });
+            // Stagger first spawns with negative age (delay before appearing)
+            logoParticles.forEach((p, i) => { p.age = -(i * (1.5 + Math.random() * 2) + 0.5); });
 
             // Track last logo center to enforce spacing
             let lastCX = 0.5, lastCY = 0.5;
+            let lastFrameTime = performance.now();
 
-            const spawnLogoParticle = (p: any, w: number, h: number, elapsed: number) => {
+            const spawnLogoParticle = (p: any, w: number, h: number) => {
                 const aspect = logoNatW / (logoNatH || 1);
                 // Wide size range: 8% – 60% of canvas height
                 const minH = h * 0.08;
@@ -600,12 +593,25 @@ const PixelBlast = ({
                 p.w = tW / w;
                 p.h = tH / h;
 
+                // Safe zones: 20% left/right, 10% top/bottom
+                const safeLeft = 0.20;
+                const safeRight = 0.20;
+                const safeTop = 0.10;
+                const safeBottom = 0.10;
+
                 // Try up to 10 positions, pick one far enough from last
                 const MIN_DIST = 0.35; // in UV space
                 let bestX = 0, bestY = 0, bestDist = -1;
+
+                // Available range for logo center (accounting for safe zones and logo size)
+                const minCX = safeLeft + p.w / 2;
+                const maxCX = 1 - safeRight - p.w / 2;
+                const minCY = safeBottom + p.h / 2;
+                const maxCY = 1 - safeTop - p.h / 2;
+
                 for (let attempt = 0; attempt < 10; attempt++) {
-                    const cx = p.w / 2 + Math.random() * Math.max(0, 1 - p.w);
-                    const cy = p.h / 2 + Math.random() * Math.max(0, 1 - p.h);
+                    const cx = minCX + Math.random() * Math.max(0, maxCX - minCX);
+                    const cy = minCY + Math.random() * Math.max(0, maxCY - minCY);
                     const dist = Math.hypot(cx - lastCX, cy - lastCY);
                     if (dist > bestDist) { bestDist = dist; bestX = cx; bestY = cy; }
                     if (dist >= MIN_DIST) break;
@@ -615,41 +621,62 @@ const PixelBlast = ({
                 lastCX = bestX;
                 lastCY = bestY;
 
-                p.birthTime = elapsed + 0.8 + Math.random() * 3; // pause 0.8–3.8s between logos
-                p.lifetime = 4 + Math.random() * 8;             // lives 4–12s
+                // Reset age to negative value (delay before next logo appears)
+                p.age = -(0.8 + Math.random() * 3);
+                p.lifetime = 4 + Math.random() * 8;
                 p.maxStr = 0.55 + Math.random() * 0.65;
                 p.active = true;
             };
             let raf = 0;
             const animate = () => {
                 if (autoPauseOffscreen && !visibilityRef.current.visible) {
+                    lastFrameTime = performance.now();
                     raf = requestAnimationFrame(animate);
                     return;
                 }
-                const elapsed = clock.getElapsedTime();
-                uniforms.uTime.value = timeOffset + elapsed * speedRef.current;
 
-                // --- Update logo particles ---
+                // Calculate delta time for frame-independent animation
+                const now = performance.now();
+                const deltaTime = Math.min((now - lastFrameTime) / 1000, 0.1); // Cap at 100ms
+                lastFrameTime = now;
+
+                // Use delta-accumulated time for shader (avoids precision issues)
+                // Wrap shader time to prevent float overflow
+                const TIME_WRAP = 600; // 10 minutes is enough for visual variety
+                uniforms.uTime.value = (uniforms.uTime.value + deltaTime * speedRef.current) % TIME_WRAP;
+
+                // Clear stale click ripples when time wraps
+                const currentTime = uniforms.uTime.value;
+                for (let i = 0; i < MAX_CLICKS; i++) {
+                    const clickTime = uniforms.uClickTimes.value[i];
+                    if (clickTime > currentTime + 10) {
+                        uniforms.uClickPos.value[i].set(-1, -1);
+                        uniforms.uClickTimes.value[i] = 0;
+                    }
+                }
+
+                // --- Update logo particles using delta time ---
                 const cw = renderer.domElement.width;
                 const ch = renderer.domElement.height;
                 for (let i = 0; i < LOGO_SLOTS; i++) {
                     const p = logoParticles[i];
-                    const age = elapsed - p.birthTime;
-                    if (age >= p.lifetime) {
-                        spawnLogoParticle(p, cw, ch, elapsed);
+                    p.age += deltaTime;
+
+                    if (p.age >= p.lifetime) {
+                        spawnLogoParticle(p, cw, ch);
                         uniforms.uLogoStrengths.value[i] = 0;
                         uniforms.uLogoRects.value[i].set(0, 0, 0, 0);
                         continue;
                     }
-                    if (age < 0) {
+                    if (p.age < 0) {
                         uniforms.uLogoStrengths.value[i] = 0;
                         continue;
                     }
                     let str: number;
-                    if (age < FADE_IN) {
-                        str = (age / FADE_IN) * p.maxStr;
-                    } else if (age > p.lifetime - FADE_OUT) {
-                        str = ((p.lifetime - age) / FADE_OUT) * p.maxStr;
+                    if (p.age < FADE_IN) {
+                        str = (p.age / FADE_IN) * p.maxStr;
+                    } else if (p.age > p.lifetime - FADE_OUT) {
+                        str = ((p.lifetime - p.age) / FADE_OUT) * p.maxStr;
                     } else {
                         str = p.maxStr;
                     }
@@ -678,13 +705,11 @@ const PixelBlast = ({
                 scene,
                 camera,
                 material,
-                clock,
                 clickIx: 0,
                 uniforms,
                 resizeObserver: ro,
                 raf,
                 quad,
-                timeOffset,
                 composer,
                 touch,
                 liquidEffect,

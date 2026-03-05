@@ -46,21 +46,26 @@ export function MegaMenu({ label, href, items, className = '' }: MegaMenuProps) 
                         className="absolute top-full left-0 pt-2"
                     >
                         <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-2 min-w-[200px] overflow-hidden">
-                            {items.map((item, index) => (
-                                <motion.div
-                                    key={item.href}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.03, duration: 0.15 }}
-                                >
-                                    <Link
-                                        href={item.href}
-                                        className="block px-4 py-2.5 text-sm text-black hover:bg-[#003bb9]/5 hover:text-[#003bb9] transition-colors"
+                            {items.map((item, index) => {
+                                const isExternal = item.href.startsWith('http')
+                                return (
+                                    <motion.div
+                                        key={item.href}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: index * 0.03, duration: 0.15 }}
                                     >
-                                        {item.label}
-                                    </Link>
-                                </motion.div>
-                            ))}
+                                        <Link
+                                            href={item.href}
+                                            target={isExternal ? '_blank' : undefined}
+                                            rel={isExternal ? 'noopener noreferrer' : undefined}
+                                            className="block px-4 py-2.5 text-sm text-black hover:bg-[#003bb9]/5 hover:text-[#003bb9] transition-colors"
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    </motion.div>
+                                )
+                            })}
                         </div>
                     </motion.div>
                 )}

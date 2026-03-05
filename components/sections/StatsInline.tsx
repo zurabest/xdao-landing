@@ -51,7 +51,7 @@ export function StatsInline() {
                 {stats.map((stat, index) => (
                     <div
                         key={index}
-                        className="flex flex-col px-10 py-12"
+                        className="flex flex-col px-10 py-[86px]"
                     >
                         {/* Animated number */}
                         <div className="flex items-center text-black" style={{ letterSpacing: '-1px' }}>
@@ -78,10 +78,10 @@ export function StatsInline() {
                             )}
                         </div>
 
-                        <div className="text-xs font-bold uppercase tracking-widest text-black/50 mt-3 mb-2">
+                        <div className="text-base font-bold uppercase tracking-widest text-[#000000] mt-3 mb-2">
                             {stat.label}
                         </div>
-                        <div className="text-black/60 text-sm font-light leading-snug">
+                        <div className="text-[#000000] text-xl font-light leading-snug">
                             {stat.description}
                         </div>
                     </div>

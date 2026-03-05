@@ -21,7 +21,7 @@ const Logos3 = ({
     return (
         <section>
             <div className="container-bt pb-5">
-                <h1 className="text-label text-bt-gray-text uppercase tracking-wider font-medium mb-4 text-center">
+                <h1 className="text-label text-[#000000] uppercase tracking-wider font-medium mb-4 text-center">
                     {heading}
                 </h1>
             </div>

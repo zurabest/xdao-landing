@@ -54,7 +54,7 @@ export function Hero() {
                 </h1>
 
                 {/* Subheading */}
-                <p className="mt-4 text-subhead text-bt-gray-text font-light min-h-[56px] md:min-h-[64px]" style={{ maxWidth: '38.4rem' }}>
+                <p className="mt-4 text-subhead text-[#000000] font-light min-h-[56px] md:min-h-[64px]" style={{ maxWidth: '38.4rem' }}>
                     <Typewriter
                         text={[
                             "XDAO is digital treasury management that scales from family funds to global enterprise",

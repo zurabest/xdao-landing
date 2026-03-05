@@ -28,7 +28,7 @@ const logos = [
 
 export function LogoCloud() {
     return (
-        <section className="pt-0 pb-10 overflow-hidden bg-white">
+        <section className="pt-16 pb-10 overflow-hidden bg-white">
             <Logos3
                 heading="Operates across all major blockchains"
                 logos={logos}

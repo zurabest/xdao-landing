@@ -49,7 +49,7 @@ export default function AboutPage() {
                                     The Story of XDAO
                                 </h1>
 
-                                <div className="space-y-9 text-lg text-bt-gray-text leading-relaxed overflow-visible">
+                                <div className="space-y-9 text-lg text-[#000000] leading-relaxed overflow-visible">
                             <p>
                                 XDAO began in <strong>2020</strong> as a bold experiment — a self-funded bet on a simple but powerful idea: <em>make it effortless for anyone, anywhere, to create and manage a digital organization.</em>
                             </p>
@@ -62,7 +62,7 @@ export default function AboutPage() {
                                 From there, growth came fast. XDAO ran educational campaigns on Polygon and BNB Chain, becoming the <strong>fastest-growing protocol</strong> in each ecosystem.
                             </p>
 
-                            <div className="bg-[#e6ff01] rounded-xl p-6 my-8">
+                            <div className="bg-[#e6ff01] p-6 my-8">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
                                     <Tweet id="1551601055334539265" />
                                     <Tweet id="1591050445904302080" />
@@ -77,7 +77,7 @@ export default function AboutPage() {
                                 Today, XDAO is a full-scale international ecosystem supporting <strong>over 45 blockchains</strong>, with more than <strong>32,000 organizations</strong> created on the platform. Through our Telegram-based educational program, <strong>over 12 million users</strong> have completed onboarding training and been guided to start using XDAO TON — making it <em>one of the largest DAO adoption initiatives in Web3</em>.
                             </p>
 
-                            <div className="bg-[#e6ff01] rounded-xl p-6 my-8">
+                            <div className="bg-[#e6ff01] p-6 my-8">
                                 <a
                                     href="https://cointelegraph.com/news/xdao-labs-ton-telegram-dao-legal-status-367k"
                                     target="_blank"
@@ -105,7 +105,7 @@ export default function AboutPage() {
                                 At XDAO, we believe the future of finance and coordination is <strong>transparent, borderless, and collectively owned</strong>. The tools that once required armies of lawyers, accountants, and intermediaries should be accessible to <em>anyone with an internet connection</em> — whether they're managing a crypto treasury in New York, building a charitable foundation in Lagos, or launching a community fund in São Paulo.
                             </p>
 
-                            <blockquote className="border-l-4 border-[#003bb9] pl-6 py-4 my-8 bg-gray-50 rounded-r-xl">
+                            <blockquote className="border-l-4 border-[#003bb9] pl-6 pr-6 py-4 my-8 bg-gray-50">
                                 <p className="text-xl italic text-black leading-relaxed mb-4">
                                     "It's time to rethink what 'DAO' actually means. Not <em>Decentralized</em> Autonomous Organizations — because decentralization alone, as the industry has learned, is not enough. Without structure and autonomy, it becomes noise. But <strong>Digital Autonomous Organizations</strong>: structured, reliable, and purposeful entities that operate on-chain with the same discipline you'd expect from any serious institution."
                                 </p>
@@ -116,8 +116,8 @@ export default function AboutPage() {
                                         className="w-14 h-14 rounded-full object-cover ring-2 ring-[#003bb9]"
                                     />
                                     <div>
-                                        <cite className="not-italic font-semibold text-black">Vladislav Shavlidze</cite>
-                                        <p className="text-sm text-gray-500">CEO & Co-founder, XDAO</p>
+                                        <cite className="not-italic font-semibold text-[#000000]">Vladislav Shavlidze</cite>
+                                        <p className="text-sm text-[#000000]">Co-Founder & CEO, XDAO</p>
                                     </div>
                                 </footer>
                             </blockquote>

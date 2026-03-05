@@ -61,7 +61,7 @@ export function TokenSection() {
         >
             {/* Background extends to left edge only, aligned with content on right */}
             <div
-                className="absolute bg-[#003bb9] rounded-t-3xl"
+                className="absolute bg-[#003bb9]"
                 style={{
                     top: 0,
                     bottom: 0,
@@ -74,15 +74,15 @@ export function TokenSection() {
                     Built Into Everything We Build
                 </h2>
 
-                <p className="!text-white/90 text-lg leading-relaxed mb-6 max-w-2xl">
+                <p className="text-[#ffffff] text-lg leading-relaxed mb-6 max-w-2xl">
                     The native token is the functional layer of the XDAO ecosystem — not an add-on, but a core part of how the platform operates.
                 </p>
 
-                <p className="!text-white/90 text-lg leading-relaxed mb-6 max-w-2xl">
+                <p className="text-[#ffffff] text-lg leading-relaxed mb-6 max-w-2xl">
                     XDAO will launch its token at the right time. We believe tokens should be built on products, not the other way around. Our focus is on creating fundamental infrastructure that gives a future token real utility, real users, and a long lifecycle. When the foundation is strong enough, the token will reflect it.
                 </p>
 
-                <p className="!text-white/90 text-lg leading-relaxed mb-12 max-w-2xl">
+                <p className="text-[#ffffff] text-lg leading-relaxed mb-12 max-w-2xl">
                     We always rely on our users, our community of like-minded people, and those who believe in our product. Their trust and support are the foundation of everything we build.
                 </p>
 
@@ -93,7 +93,7 @@ export function TokenSection() {
                             key={card.title}
                             ref={(el) => { cardRefs.current[index] = el }}
                             className={`
-                                group relative rounded-2xl p-6 bg-white shadow-lg
+                                group relative  p-6 bg-white shadow-lg
                                 transition-all duration-500 ease-out
                                 ${visibleCards.has(index)
                                     ? 'opacity-100 translate-y-0'
@@ -105,19 +105,19 @@ export function TokenSection() {
                             }}
                         >
                             {/* Gradient overlay on hover */}
-                            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#e6ff01]/10 via-transparent to-[#003bb9]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="absolute inset-0  bg-gradient-to-br from-[#e6ff01]/10 via-transparent to-[#003bb9]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                             {/* Shimmer effect */}
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden rounded-2xl">
+                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden ">
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#e6ff01]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                             </div>
 
                             {/* Content */}
                             <div className="relative z-10">
-                                <h3 className="font-bold text-xl text-black mb-2">
+                                <h3 className="font-bold text-xl text-[#000000] mb-2">
                                     {card.title}
                                 </h3>
-                                <p className="text-gray-700 text-base leading-relaxed">
+                                <p className="text-[#000000] text-base leading-relaxed">
                                     {card.description}
                                 </p>
                             </div>

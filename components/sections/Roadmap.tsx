@@ -100,93 +100,84 @@ const bentoCards: BentoCard[] = [
     // 2026 - In Progress
     {
         year: "2026",
-        title: "XDAO on Solana — US Market Entry",
+        title: "XDAO on Solana",
         description: "Building compliant DAO infrastructure for the US market. Solana brings XDAO to organizations that require institutional-grade security, upgradable architecture, and regulatory alignment for digital asset management.",
         status: "in-progress",
         size: "large"
     },
     {
         year: "2026",
-        title: "Compliance-Grade Crowdfunding",
-        description: "A capital-raising module designed specifically to meet US regulatory standards — enabling investment clubs, family offices, and emerging funds to raise capital on-chain with legal confidence.",
+        title: "US Compliance Infrastructure",
+        description: "Full regulatory stack built into the protocol — capital raising under US securities exemptions, identity verification, transaction monitoring, tax attestation, investor whitelisting, and legally binding agreement signing, all on-chain.",
         status: "in-progress",
         size: "medium"
     },
+    // 2027 - Upcoming
     {
-        year: "2026",
-        title: "Cross-Chain Architecture — Foundation",
+        year: "2027",
+        title: "Cross-Chain Architecture",
         description: "Beginning the architectural work for a unified management layer across all major blockchain ecosystems. The goal: a single interface where any organization can manage any digital asset, regardless of which chain it lives on.",
-        status: "in-progress",
-        size: "small"
-    },
-    {
-        year: "2026",
-        title: "Compliance Stack On-Chain",
-        description: "Full US regulatory infrastructure built into the protocol from day one — identity verification, transaction monitoring, tax attestation, and legally binding agreement signing, all on-chain.",
-        status: "in-progress",
+        status: "upcoming",
         size: "medium"
     },
     {
-        year: "2026",
-        title: "Regulation-Compliant Crowdfunding",
-        description: "Capital raising under US securities exemptions with access control, soft/hard caps, investor whitelisting, and automatic refund mechanics built into the smart contract layer.",
-        status: "in-progress",
-        size: "small"
-    },
-    // 2027-2028 - Upcoming
-    {
-        year: "2027–2028",
+        year: "2027",
         title: "Unified Cross-Chain Dashboard",
         description: "One interface for every blockchain. Organizations stop thinking in terms of chains and start thinking in terms of strategy. XDAO handles the complexity underneath.",
         status: "upcoming",
         size: "large"
     },
+    // 2028 - Upcoming
     {
-        year: "2027–2028",
+        year: "2028",
         title: "Enterprise Treasury Layer",
         description: "Dedicated infrastructure for large organizations: family offices, investment funds, and corporate treasury teams. Automated compliance, multi-signature governance, and white-label deployment for institutions that need digital asset operations at scale.",
         status: "upcoming",
         size: "medium"
     },
+    // 2029 - Upcoming
     {
-        year: "2027–2028",
+        year: "2029",
         title: "Embedded Legal Infrastructure",
         description: "Deep integration of legal and compliance tooling directly into the DAO layer — so that forming and operating a digital organization becomes as straightforward as opening a bank account.",
         status: "upcoming",
         size: "small"
     },
+    // 2030 - Upcoming
     {
-        year: "2027–2028",
+        year: "2030",
         title: "Merchant & Payments Infrastructure",
         description: "On-chain invoicing, payment processing, recurring subscriptions, and storefront capabilities — DAOs operating as fully functional business entities.",
         status: "upcoming",
         size: "medium"
     },
+    // 2031 - Upcoming
     {
-        year: "2027–2028",
+        year: "2031",
         title: "Distribution Module",
         description: "Automated dividend distribution to token holders with round-based payouts, tax compliance enforcement, and fully transparent on-chain claim records.",
         status: "upcoming",
         size: "small"
     },
-    // 2029-2031 - Vision
+    // 2033 - Vision
     {
-        year: "2029–2031",
+        year: "2033",
         title: "DAOs as Standard Corporate Infrastructure",
         description: "The same way organizations adopted cloud computing, they will adopt digital treasury management. XDAO is building toward a world where every serious organization — from a two-person fund to a multinational — operates part of its financial life through a DAO.",
         status: "vision",
         size: "large"
     },
-    // 2032-2035 - Vision
+    // 2034 - Vision
     {
-        year: "2032–2035",
+        year: "2034",
         title: "From Tool to Ecosystem",
         description: "XDAO evolves from a platform into foundational infrastructure: open, composable, and interoperable with the broader digital economy. The organizations built on XDAO today are the early nodes of a much larger network.",
         status: "vision",
         size: "medium"
     },
+    // 2035 - Vision
     {
-        year: "2032–2035",
+        year: "2035",
         title: "Digital Sovereignty for Every Organization",
         description: "Ultimately, XDAO's mission is simple: any group of people, anywhere in the world, should be able to pool resources, govern them transparently, and act collectively — without depending on banks, intermediaries, or borders.",
         status: "vision",
@@ -208,7 +199,7 @@ function BentoCardComponent({
     return (
         <div
             className={`
-                inline-block w-full mb-4 break-inside-avoid
+                w-full
                 transition-all duration-500 ease-out
                 ${isVisible
                     ? 'opacity-100 translate-y-0'
@@ -228,7 +219,7 @@ function BentoCardComponent({
                 {/* Front Side */}
                 <div
                     className={`
-                        absolute inset-0 rounded-2xl border-2 p-5 md:p-6
+                        absolute inset-0  border-2 p-5 md:p-6
                         flex flex-col justify-center
                         transition-transform duration-500 ease-out
                         group-hover:[transform:rotateY(180deg)]
@@ -267,7 +258,7 @@ function BentoCardComponent({
                 {/* Back Side */}
                 <div
                     className={`
-                        absolute inset-0 rounded-2xl border-2 p-5 md:p-6
+                        absolute inset-0  border-2 p-5 md:p-6
                         flex flex-col justify-center
                         transition-transform duration-500 ease-out
                         [transform:rotateY(180deg)]
@@ -281,7 +272,7 @@ function BentoCardComponent({
                 >
                     <p className={`
                         text-sm leading-relaxed
-                        ${isCompleted ? 'text-white/90' : 'text-gray-600'}
+                        ${isCompleted ? 'text-[#ffffff]' : 'text-[#000000]'}
                     `}>
                         {card.description}
                     </p>
@@ -331,12 +322,12 @@ export function Roadmap() {
                 Roadmap
             </h2>
 
-            <p className="text-lg text-gray-600 mb-12">
-                Every card is a bet we made. Hover to see what's behind each one.
+            <p className="mb-12">
+                Our roadmap extends years into the future — because we're building resilient infrastructure designed to power digital organizations for decades to come.
             </p>
 
-            {/* Masonry Layout with CSS Columns */}
-            <div className="columns-1 md:columns-2 gap-4">
+            {/* Grid Layout - row by row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {bentoCards.map((card, index) => (
                     <div
                         key={`${card.year}-${card.title}`}

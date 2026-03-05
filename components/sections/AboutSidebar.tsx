@@ -80,7 +80,7 @@ export function AboutSidebar() {
 
     return (
         <aside className="hidden lg:block w-48 shrink-0 ml-auto">
-            <nav className="sticky top-40 pl-8">
+            <nav className="sticky top-40 pt-8 pl-8 pb-32">
                 <p className="text-xs uppercase tracking-wider text-gray-400 font-medium mb-4">On this page</p>
                 <div ref={linksContainerRef} className="relative">
                     {/* Single animated yellow indicator */}
@@ -100,7 +100,7 @@ export function AboutSidebar() {
                             onClick={() => handleClick(index)}
                             className={`relative block py-2 pl-4 text-body transition-all duration-300 ${
                                 activeIndex === index
-                                    ? 'text-black font-medium'
+                                    ? 'text-[#000000] font-medium'
                                     : 'text-[#003bb9] hover:text-bt-gray-text'
                             }`}
                         >

@@ -17,7 +17,7 @@ export function GlobalStructure() {
 
             <div className="flex flex-col items-center">
                 {/* Headquarters - USA - Full Width */}
-                <div className="group relative w-full rounded-2xl p-8 text-white text-center overflow-hidden cursor-pointer transition-all duration-500">
+                <div className="group relative w-full  p-8 text-white text-center overflow-hidden  transition-all duration-500">
                     {/* Base background */}
                     <div className="absolute inset-0 bg-[#003bb9] transition-opacity duration-500"></div>
 
@@ -26,7 +26,7 @@ export function GlobalStructure() {
 
                     {/* Shimmer effect */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#e6ff01]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                     </div>
 
                     {/* Content */}
@@ -47,19 +47,19 @@ export function GlobalStructure() {
                 <div className="w-0.5 h-10 bg-[#003bb9]"></div>
 
                 {/* Representative Office - Singapore - Centered, smaller */}
-                <div className="group relative w-full max-w-sm rounded-2xl p-6 text-center overflow-hidden cursor-pointer transition-all duration-500">
+                <div className="group relative w-full max-w-sm  p-6 text-center overflow-hidden  transition-all duration-500">
                     {/* Base background */}
                     <div className="absolute inset-0 bg-white transition-opacity duration-500"></div>
 
                     {/* Border */}
-                    <div className="absolute inset-0 rounded-2xl border-2 border-[#003bb9]"></div>
+                    <div className="absolute inset-0  border-2 border-[#003bb9]"></div>
 
                     {/* Gradient overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[#003bb9]/5 via-transparent to-[#e6ff01]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     {/* Shimmer effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden rounded-2xl">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#003bb9]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden ">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#e6ff01]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                     </div>
 
                     {/* Content */}
@@ -67,10 +67,10 @@ export function GlobalStructure() {
                         <p className="text-[#003bb9] text-xs font-semibold uppercase tracking-wider mb-2">
                             Representative Office
                         </p>
-                        <h3 className="text-lg font-bold text-black mb-1">
+                        <h3 className="text-lg font-bold text-[#000000] mb-1">
                             XGROUP GLOBAL PTE LTD
                         </h3>
-                        <p className="text-bt-gray-text text-sm">
+                        <p className="text-[#000000] text-sm">
                             Singapore
                         </p>
                     </div>

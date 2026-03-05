@@ -58,11 +58,11 @@ export function BoardSection() {
                         </p>
 
                         {/* Role */}
-                        <p className="text-bt-gray-text text-sm">
+                        <p className="text-[#000000] text-sm">
                             {member.role}
                         </p>
                         {member.secondRole && (
-                            <p className="text-bt-gray-text text-sm">
+                            <p className="text-[#000000] text-sm">
                                 {member.secondRole}
                             </p>
                         )}

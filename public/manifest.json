@@ -1,0 +1,16 @@
+{
+    "name": "XDAO - Treasury Infrastructure for Digital Organizations",
+    "short_name": "XDAO",
+    "description": "Create and manage Decentralized Autonomous Organizations across 45+ blockchains",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#003bb9",
+    "icons": [
+        {
+            "src": "/xdao-logo.png",
+            "sizes": "421x157",
+            "type": "image/png"
+        }
+    ]
+}

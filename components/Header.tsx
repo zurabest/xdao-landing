@@ -16,11 +16,10 @@ const aboutSubmenu = [
     { label: 'Token', href: '/about#token' },
 ]
 
-const resourcesSubmenu = [
+const communitySubmenu = [
     { label: 'Telegram', href: 'https://t.me/xdaoapp' },
     { label: 'X (Twitter)', href: 'https://x.com/xdaoapp' },
     { label: 'Discord', href: 'https://discord.com/invite/xdaoapp' },
-    { label: 'MediaKit', href: '#' },
 ]
 
 export function Header() {
@@ -45,13 +44,13 @@ export function Header() {
                         Docs
                     </a>
                     <MegaMenu
-                        label="Resources"
+                        label="Community"
                         href="#"
-                        items={resourcesSubmenu}
+                        items={communitySubmenu}
                     />
-                    <button className="bg-[#003bb9] text-white hover:bg-[#002f94] rounded-full px-5 py-2 text-body transition-colors">
+                    <Link href="/1" className="bg-[#003bb9] text-white hover:bg-[#002f94] rounded-full px-5 py-2 text-body transition-colors">
                         Launch
-                    </button>
+                    </Link>
                 </nav>
 
                 {/* Mobile Menu Button */}
@@ -89,10 +88,10 @@ export function Header() {
                         </a>
                         <div className="flex flex-col">
                             <span className="text-body font-medium mb-2">
-                                Resources
+                                Community
                             </span>
                             <div className="pl-4 flex flex-col gap-2 border-l-2 border-[#003bb9]/20">
-                                {resourcesSubmenu.map((item) => {
+                                {communitySubmenu.map((item) => {
                                     const isExternal = item.href.startsWith('http')
                                     return (
                                         <Link
@@ -109,9 +108,9 @@ export function Header() {
                                 })}
                             </div>
                         </div>
-                        <button className="bg-[#003bb9] text-white hover:bg-[#002f94] rounded-full px-5 py-2 text-body transition-colors w-fit" onClick={() => setIsOpen(false)}>
+                        <Link href="/1" className="bg-[#003bb9] text-white hover:bg-[#002f94] rounded-full px-5 py-2 text-body transition-colors w-fit" onClick={() => setIsOpen(false)}>
                             Launch
-                        </button>
+                        </Link>
                     </nav>
                 </div>
             )}

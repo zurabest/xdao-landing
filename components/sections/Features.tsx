@@ -1,118 +1,142 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Check } from "lucide-react"
-import { cn } from "@/lib/utils"
+import React, { useEffect, useRef, useState } from 'react'
+import { FadeIn } from '@/components/ui/FadeIn'
 
-const features = [
+type FeatureItem = {
+    title: string
+    description: string
+}
+
+const featureItems: FeatureItem[] = [
     {
-        id: "create",
-        label: "Create",
-        title: "Launch your organization instantly",
-        description: "Define your governance structure, tokenomics, and membership rules with a few clicks. No coding required.",
-        points: ["Multi-chain deployment", "Modular architecture", "Custom voting rules"],
-        color: "from-blue-500 to-cyan-400"
+        title: "Instant DAO Deployment",
+        description: "Create a fully functional digital organization in under 60 seconds. No legal paperwork, no technical setup, no intermediaries — just your team and your treasury, live on-chain.",
     },
     {
-        id: "govern",
-        label: "Govern",
-        title: "Decision making made simple",
-        description: "Create proposals, debate, and vote on-chain. Transparent and verifiable governance for your community.",
-        points: ["Gasless voting", "Delegation support", "Quadratic voting"],
-        color: "from-indigo-500 to-purple-400"
+        title: "Multi-Chain Management",
+        description: "Manage digital assets across 45+ blockchains. One organization, every chain — EVM, TON, Solana (soon), and beyond. Operate across multiple networks simultaneously.",
     },
     {
-        id: "treasury",
-        label: "Treasury",
-        title: "Secure asset management",
-        description: "Manage your DAO's assets with enterprise-grade security. Multi-sig support and connection to DeFi protocols.",
-        points: ["Gnosis Safe integration", "Asset streaming", "Portfolio dashboard"],
-        color: "from-emerald-500 to-green-400"
+        title: "Capital Raising",
+        description: "Launch a fundraising campaign and accept contributions directly into your DAO treasury. Set caps, whitelists, and management fees — your investors receive LP tokens automatically.",
     },
     {
-        id: "execute",
-        label: "Execute",
-        title: "Trustless execution",
-        description: "Automatically execute passed proposals on-chain. Remove centralized intermediaries from the process.",
-        points: ["Timelock controllers", "Cross-chain execution", "Automated transactions"],
-        color: "from-orange-500 to-amber-400"
-    }
+        title: "On-Chain Governance",
+        description: "Every decision — from fund transfers to member management — goes through a transparent voting process. No single point of control. Full accountability on-chain.",
+    },
+    {
+        title: "DeFi Integration",
+        description: "Connect your DAO treasury to any DeFi protocol. Yield strategies, liquidity pools, token swaps — all executable through a single organizational wallet with multi-sig protection.",
+    },
+    {
+        title: "Legal Infrastructure",
+        description: "Sign binding agreements inside Telegram, register your organization as a legal entity, and operate with full compliance — bridging on-chain governance with real-world enforceability.",
+    },
 ]
 
 export function Features() {
-    const [activeTab, setActiveTab] = React.useState("create")
-    const activeFeature = features.find(f => f.id === activeTab) || features[0]
+    const sectionRef = useRef<HTMLDivElement>(null)
+    const [sectionVisible, setSectionVisible] = useState(false)
+
+    useEffect(() => {
+        if (!sectionRef.current) return
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setSectionVisible(true)
+                    }
+                })
+            },
+            {
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.1
+            }
+        )
+
+        observer.observe(sectionRef.current)
+
+        return () => observer.disconnect()
+    }, [])
+
+    // Pair items: left (0,1,2) with right (3,4,5)
+    const rows = [
+        { left: featureItems[0], right: featureItems[3] },
+        { left: featureItems[1], right: featureItems[4] },
+        { left: featureItems[2], right: featureItems[5] },
+    ]
 
     return (
-        <section className="py-24 bg-black/40 relative overflow-hidden">
-            {/* Background Mesh */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-background to-background" />
+        <section id="features" className="py-16 md:py-24" style={{ backgroundColor: '#003bb9' }}>
+            <div className="container-bt" style={{ maxWidth: '1400px' }}>
+                <div ref={sectionRef}>
+                    <table className="hidden md:table w-full border-collapse">
+                        <tbody>
+                            {rows.map((row, rowIndex) => (
+                                <React.Fragment key={rowIndex}>
+                                    <tr>
+                                        <td className="w-1/2 align-top py-10 pr-12">
+                                            <FadeIn delay={0.1 * rowIndex}>
+                                                <div>
+                                                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-normal text-white mb-4">
+                                                        {row.left.title}
+                                                    </h3>
+                                                    <p className="text-lg md:text-xl lg:text-2xl text-white leading-relaxed">
+                                                        {row.left.description}
+                                                    </p>
+                                                </div>
+                                            </FadeIn>
+                                        </td>
+                                        <td className="w-1/2 align-top py-10 pl-12">
+                                            <FadeIn delay={0.1 * rowIndex + 0.05}>
+                                                <div>
+                                                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-normal text-white mb-4">
+                                                        {row.right.title}
+                                                    </h3>
+                                                    <p className="text-lg md:text-xl lg:text-2xl text-white leading-relaxed">
+                                                        {row.right.description}
+                                                    </p>
+                                                </div>
+                                            </FadeIn>
+                                        </td>
+                                    </tr>
+                                    {rowIndex < rows.length - 1 && (
+                                        <tr>
+                                            <td className="pr-12 py-4">
+                                                <FadeIn delay={0.1 * rowIndex + 0.15}>
+                                                    <div className="h-0.5 bg-white mt-8" />
+                                                </FadeIn>
+                                            </td>
+                                            <td className="pl-12 py-4">
+                                                <FadeIn delay={0.1 * rowIndex + 0.2}>
+                                                    <div className="h-0.5 bg-white mt-8" />
+                                                </FadeIn>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </tbody>
+                    </table>
 
-            <div className="container px-4 md:px-6 relative z-10">
-                <div className="text-center mb-16">
-                    <span className="text-primary font-semibold tracking-wider uppercase text-sm">Platform</span>
-                    <h2 className="text-3xl md:text-5xl font-bold mt-2">Everything your DAO needs</h2>
-                </div>
-
-                <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                    {/* Tabs Navigation */}
-                    <div className="lg:col-span-4 flex flex-col gap-2">
-                        {features.map((feature) => (
-                            <button
-                                key={feature.id}
-                                onClick={() => setActiveTab(feature.id)}
-                                className={cn(
-                                    "text-left px-6 py-4 rounded-xl transition-all duration-300 border border-transparent",
-                                    activeTab === feature.id
-                                        ? "bg-white/5 border-white/10 shadow-lg text-white"
-                                        : "text-muted-foreground hover:bg-white/5 hover:text-white"
-                                )}
-                            >
-                                <span className="text-lg font-semibold">{feature.label}</span>
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Content Panel */}
-                    <div className="lg:col-span-8">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeTab}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.3 }}
-                                className="bg-card/50 border border-white/10 rounded-2xl p-8 md:p-10 backdrop-blur-sm"
-                            >
-                                <div className="grid md:grid-cols-2 gap-8 items-center">
+                    {/* Mobile Layout */}
+                    <div className="md:hidden">
+                        {featureItems.map((item, index) => (
+                            <div key={index} className={index < featureItems.length - 1 ? 'pb-8 mb-8 border-b border-white/30' : ''}>
+                                <FadeIn delay={0.1 * index}>
                                     <div>
-                                        <h3 className="text-2xl font-bold mb-4">{activeFeature.title}</h3>
-                                        <p className="text-muted-foreground mb-6 leading-relaxed">
-                                            {activeFeature.description}
+                                        <h3 className="text-2xl font-normal text-white mb-4">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-lg text-white leading-relaxed">
+                                            {item.description}
                                         </p>
-                                        <ul className="space-y-3">
-                                            {activeFeature.points.map((point) => (
-                                                <li key={point} className="flex items-center gap-3">
-                                                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                                                        <Check size={12} />
-                                                    </div>
-                                                    <span className="text-sm font-medium">{point}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
                                     </div>
-                                    <div className={cn(
-                                        "aspect-square rounded-xl bg-gradient-to-br p-1",
-                                        activeFeature.color
-                                    )}>
-                                        <div className="w-full h-full bg-black/90 rounded-lg flex items-center justify-center">
-                                            <span className="text-white/20 font-mono">Feature Preview</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </AnimatePresence>
+                                </FadeIn>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

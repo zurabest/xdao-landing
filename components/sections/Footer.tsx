@@ -1,37 +1,30 @@
 import Link from 'next/link'
+import { XdaoLogo } from '@/components/ui/XdaoLogo'
 
 const columns = [
     {
-        title: 'RESOURCES',
+        title: 'PRODUCT',
         links: [
-            { label: 'Documentation', href: '/docs' },
-            { label: 'Integrations', href: '/integrations' },
-            { label: 'Templates', href: '/templates' },
-            { label: 'Changelog', href: '/changelog' },
-            { label: 'For DAOs', href: '/for-daos' },
-            { label: 'Articles', href: '/articles' },
+            { label: 'EVM', href: '/1' },
+            { label: 'TON (Telegram)', href: 'https://www.xdao.app/1/vesting' },
+            { label: 'Docs', href: 'https://docs.xdao.app/' },
+            { label: 'Vesting', href: '/1/vesting' },
         ],
     },
     {
         title: 'COMPANY',
         links: [
-            { label: 'Pricing', href: '/pricing' },
-            { label: 'Blog', href: '/blog' },
-            { label: 'Careers', href: '/careers' },
-            { label: 'Contact us', href: '/contact' },
-            { label: 'Privacy Policy', href: '/privacy' },
-            { label: 'Trust center', href: '/trust' },
+            { label: 'About', href: '/about' },
+            { label: 'Terms of Use', href: '/1/terms' },
+            { label: 'Privacy Policy', href: '/1/privacy' },
         ],
     },
     {
         title: 'COMMUNITY',
         links: [
-            { label: 'GitHub', href: 'https://github.com/xdao' },
-            { label: 'Discord', href: 'https://discord.gg/xdao' },
-            { label: 'Newsletter', href: '/newsletter' },
-            { label: 'X', href: 'https://x.com/xdao' },
-            { label: 'YouTube', href: 'https://youtube.com/xdao' },
-            { label: 'LinkedIn', href: 'https://linkedin.com/company/xdao' },
+            { label: 'Telegram', href: 'https://t.me/xdaoapp' },
+            { label: 'X (Twitter)', href: 'https://x.com/xdaoapp' },
+            { label: 'Discord', href: 'https://discord.com/invite/xdaoapp' },
         ],
     },
 ]
@@ -43,18 +36,15 @@ export function Footer() {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
                     {/* Logo */}
                     <div className="col-span-2 lg:col-span-1">
-                        <div className="w-10 h-10 bg-white rounded-lg mb-8 flex items-center justify-center font-display font-bold text-black text-xl">
-                            X
-                        </div>
-                        <Link href="/" className="font-display font-semibold text-2xl hover:opacity-80 transition-opacity">
-                            xdao
+                        <Link href="/" className="block pointer-events-none">
+                            <XdaoLogo className="h-12 w-auto brightness-0 invert opacity-60" />
                         </Link>
                     </div>
 
                     {/* Link columns */}
                     {columns.map((column, index) => (
                         <div key={index}>
-                            <h4 className="text-label text-white/60 mb-6 font-mono">
+                            <h4 className="text-xl font-normal text-white/60 mb-12 uppercase tracking-widest">
                                 {column.title}
                             </h4>
                             <ul className="space-y-4">
@@ -62,7 +52,7 @@ export function Footer() {
                                     <li key={linkIndex}>
                                         <Link
                                             href={link.href}
-                                            className="text-body text-white/60 hover:text-white transition-colors"
+                                            className="text-base text-white/60 hover:text-white transition-colors"
                                         >
                                             {link.label}
                                         </Link>
@@ -74,14 +64,10 @@ export function Footer() {
                 </div>
 
                 {/* Copyright */}
-                <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <p className="text-small text-white/40 uppercase tracking-widest font-mono">
-                        COPYRIGHT ©2025 XDAO, INC.
+                <div className="mt-20 pt-8 border-t border-white/10">
+                    <p className="text-sm text-white/40">
+                        Copyright © 2021-2026 XDAO, Inc. All rights reserved.
                     </p>
-                    <div className="flex gap-6">
-                        <Link href="/terms" className="text-small text-white/40 hover:text-white transition-colors uppercase tracking-widest font-mono">Terms</Link>
-                        <Link href="/privacy" className="text-small text-white/40 hover:text-white transition-colors uppercase tracking-widest font-mono">Privacy</Link>
-                    </div>
                 </div>
             </div>
         </footer>

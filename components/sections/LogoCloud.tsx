@@ -1,4 +1,7 @@
+'use client'
+
 import { Logos3 } from '@/components/ui/logos3'
+import { FadeIn } from '@/components/ui/FadeIn'
 
 const logos = [
     { id: 'moonriver', description: 'Moonriver', image: '/chains/moonriver.svg', className: 'h-[19px] w-auto grayscale' },
@@ -29,10 +32,12 @@ const logos = [
 export function LogoCloud() {
     return (
         <section className="pt-16 pb-10 overflow-hidden bg-white">
-            <Logos3
-                heading="Operates across all major blockchains"
-                logos={logos}
-            />
+            <FadeIn>
+                <Logos3
+                    heading="Operates across all major blockchains"
+                    logos={logos}
+                />
+            </FadeIn>
         </section>
     )
 }

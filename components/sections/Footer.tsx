@@ -6,7 +6,7 @@ const columns = [
         title: 'PRODUCT',
         links: [
             { label: 'EVM', href: '/1' },
-            { label: 'TON (Telegram)', href: 'https://www.xdao.app/1/vesting' },
+            { label: 'TON (Telegram)', href: 'https://app.xdao.app/1/vesting' },
             { label: 'Docs', href: 'https://docs.xdao.app/' },
             { label: 'Vesting', href: '/1/vesting' },
         ],

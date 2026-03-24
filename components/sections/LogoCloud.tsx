@@ -14,6 +14,7 @@ const logos = [
     { id: 'solana', description: 'Solana', image: '/chains/solana.png', className: 'h-[19px] w-auto grayscale', soon: true },
     { id: 'arbitrum', description: 'Arbitrum', image: '/chains/arbitrum-one.svg', className: 'h-[29px] w-auto grayscale' },
     { id: 'optimism', description: 'Optimism', image: '/chains/optimism.svg', className: 'h-[17px] w-auto grayscale' },
+    { id: 'monad', description: 'Monad', image: '/chains/monad.svg', className: 'h-[24px] w-auto grayscale', soon: true },
     { id: 'base', description: 'Base', image: '/chains/base.svg', className: 'h-[23px] w-auto grayscale' },
     { id: 'hyperliquid', description: 'Hyperliquid', image: '/chains/hyperliquid.png', className: 'h-[22px] w-auto grayscale', soon: true },
     { id: 'avalanche', description: 'Avalanche', image: '/chains/avalanche.svg', className: 'h-[26px] w-auto grayscale brightness-75 contrast-125' },
